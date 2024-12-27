@@ -10,7 +10,6 @@ import { ThemeProvider } from "@mui/material";  // Importing ThemeProvider from 
 import theme from "../theme";  // Importing the custom theme configuration
 import { JSX, ReactNode } from "react";  // Importing ReactNode type for typing children props
 import { AuthProvider } from "@/context/AuthContext";
-import Navbar from "@/components/Navbar";
 
 /**
  * Metadata for the entire application.
@@ -50,8 +49,10 @@ const roboto: { className: string; style: object; variable: string } = Roboto({
  * @returns {JSX.Element} - The root layout structure.
  */
 export default function RootLayout({
+  navbar,
   children,  // React children passed to the layout (pages and components)
 }: Readonly<{
+  navbar: ReactNode;
   children: ReactNode;  // Type enforcement to ensure children are valid React nodes
 }>): JSX.Element {
   return (
@@ -60,7 +61,7 @@ export default function RootLayout({
         <AppRouterCacheProvider>  {/* Enables caching for Material UI in Next.js App Router */}
           <AuthProvider>
             <ThemeProvider theme={theme}>  {/* Provides the custom Material UI theme to the entire app */}
-              <Navbar />
+              {navbar}
               {children}  {/* Render the child components (pages and app content) */}
             </ThemeProvider>
           </AuthProvider>
