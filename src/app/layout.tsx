@@ -9,6 +9,8 @@ import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter';  //
 import { ThemeProvider } from "@mui/material";  // Importing ThemeProvider from Material UI for theming
 import theme from "../theme";  // Importing the custom theme configuration
 import { JSX, ReactNode } from "react";  // Importing ReactNode type for typing children props
+import { AuthProvider } from "@/context/AuthContext";
+import Navbar from "@/components/Navbar";
 
 /**
  * Metadata for the entire application.
@@ -56,9 +58,12 @@ export default function RootLayout({
     <html lang="en">  {/* Set the language attribute for accessibility and SEO */}
       <body className={roboto.variable}>  {/* Apply the Roboto font variable as a class to the body */}
         <AppRouterCacheProvider>  {/* Enables caching for Material UI in Next.js App Router */}
-          <ThemeProvider theme={theme}>  {/* Provides the custom Material UI theme to the entire app */}
-            {children}  {/* Render the child components (pages and app content) */}
-          </ThemeProvider>
+          <AuthProvider>
+            <ThemeProvider theme={theme}>  {/* Provides the custom Material UI theme to the entire app */}
+              <Navbar />
+              {children}  {/* Render the child components (pages and app content) */}
+            </ThemeProvider>
+          </AuthProvider>
         </AppRouterCacheProvider>
       </body>
     </html>
