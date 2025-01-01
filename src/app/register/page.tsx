@@ -27,7 +27,10 @@ interface RegisterFormValues {
 export default function RegisterPage(): JSX.Element {
     // Validation schema using Yup for form fields
     const validationSchema = object({
-        username: string().required("Enter your username!"), // Username is required
+        username: string()
+        .required("Enter your username!") // Username is required
+        .min(3, "Username must be at least 3 characters!") // Username must be at least 3 characters
+        .max(50, "Username must be at most 50 characters!"), // Username must be at most 50 characters
         password: string()
             .required("Password is required!") // Password is required
             .matches(/[A-Z]/, 'Password must contain at least one uppercase letter!') // Must contain at least one uppercase letter
