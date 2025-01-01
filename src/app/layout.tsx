@@ -7,6 +7,7 @@ import theme from "../theme";
 import { JSX, ReactNode } from "react";
 import { AuthProvider } from "@/context/AuthContext";
 import Navbar from "./_components/Navbar";
+import { ToastContainer } from "react-toastify";
 
 /**
  * Metadata for the entire application.
@@ -55,8 +56,9 @@ export default function RootLayout({
         <AppRouterCacheProvider>  {/* Enables caching for Material UI in Next.js App Router */}
           <AuthProvider>
             <ThemeProvider theme={theme}>  {/* Provides the custom Material UI theme to the entire app */}
-              <Navbar />
+              <Navbar />  {/* Display the application navigation bar */}
               {children}  {/* Render the child components (pages and app content) */}
+              <ToastContainer />  {/* Display toast notifications */}
             </ThemeProvider>
           </AuthProvider>
         </AppRouterCacheProvider>

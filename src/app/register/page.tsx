@@ -6,11 +6,17 @@ import { Box, Button, TextField } from "@mui/material";
 import InputPassword from "../_components/inputs/Password";
 import { JSX } from "react";
 import userService from "@/services/userService";
+import toastify from "@/utils/toastify";
+import responseHandler from "@/utils/responseHandler";
 
+/**
+ * Interface for the values used in the registration form.
+ * Defines the structure of the form data, which includes a username, password, and confirmation password.
+ */
 interface RegisterFormValues {
-    username: string;
-    password: string;
-    confirmationPassword: string;
+    username: string;          // The username entered by the user.
+    password: string;          // The password entered by the user.
+    confirmationPassword: string;  // The password confirmation field to ensure passwords match.
 }
 
 /**
@@ -33,19 +39,20 @@ export default function RegisterPage(): JSX.Element {
             .oneOf([ref("password")], "Password must match!") // Must match the password field
     });
 
+    /**
+     * Registers a new user with the given form values.
+     * This function creates a user by calling the `createUser` service method and handles any errors during the process.
+     * 
+     * @param {RegisterFormValues} values - The form values containing username, password, and confirmation password.
+     */
     async function register(values: RegisterFormValues) {
-        const request: RegisterRequest = {...values};
+        const request: RegisterRequest = { ...values }; // Prepare the request object
 
         try {
-            const response = await userService.createUser(request);
-
-            if (response.status === 201) {
-                console.log("User created successfully!");
-            } else {
-                console.error("Failed to create user!");
-            }
+            await userService.createUser(request); // Call the user service to create a new user
         } catch (error) {
-            console.error("An error occurred while creating the user:", error);
+            // Handle any error by showing an error message using toastify
+            toastify.toastError(responseHandler.getErrorMessage(error));
         };
     }
 
@@ -58,7 +65,7 @@ export default function RegisterPage(): JSX.Element {
         },
         validationSchema: validationSchema, // Apply validation schema
         onSubmit: async(values: RegisterFormValues): Promise<void> => { // Handle form submission
-            await register(values); // For now, just log the form values to the console
+            await register(values); // Call register function on form submission
         }
     });
 
