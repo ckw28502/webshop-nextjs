@@ -5,6 +5,13 @@ import { useFormik } from "formik";
 import { Box, Button, TextField } from "@mui/material";
 import InputPassword from "../_components/inputs/Password";
 import { JSX } from "react";
+import userService from "@/services/userService";
+
+interface RegisterFormValues {
+    username: string;
+    password: string;
+    confirmationPassword: string;
+}
 
 /**
  * RegisterPage component - A form for user registration with validation and password confirmation.
@@ -26,6 +33,22 @@ export default function RegisterPage(): JSX.Element {
             .oneOf([ref("password")], "Password must match!") // Must match the password field
     });
 
+    async function register(values: RegisterFormValues) {
+        const request: RegisterRequest = {...values};
+
+        try {
+            const response = await userService.createUser(request);
+
+            if (response.status === 201) {
+                console.log("User created successfully!");
+            } else {
+                console.error("Failed to create user!");
+            }
+        } catch (error) {
+            console.error("An error occurred while creating the user:", error);
+        };
+    }
+
     // Formik hook for managing form state, validation, and submission
     const formik = useFormik({
         initialValues: {
@@ -34,8 +57,8 @@ export default function RegisterPage(): JSX.Element {
             confirmationPassword: "", // Initial value for confirmation password
         },
         validationSchema: validationSchema, // Apply validation schema
-        onSubmit: async(values) => { // Handle form submission
-            console.log(values); // For now, just log the form values to the console
+        onSubmit: async(values: RegisterFormValues): Promise<void> => { // Handle form submission
+            await register(values); // For now, just log the form values to the console
         }
     });
 
