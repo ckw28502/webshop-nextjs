@@ -1,15 +1,12 @@
-/**
- * Root layout for the Next.js application.
- * Provides global styles, fonts, and essential providers such as Material UI theming and caching.
- */
-import type { Metadata } from "next";  // Importing Metadata type for defining page metadata
-import { Roboto } from "next/font/google";  // Importing the Roboto font from Google Fonts via Next.js
-import "./globals.css";  // Importing global CSS for styling across the application
-import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter';  // Importing MUI AppRouterCacheProvider for caching in Next.js app router
-import { ThemeProvider } from "@mui/material";  // Importing ThemeProvider from Material UI for theming
-import theme from "../theme";  // Importing the custom theme configuration
-import { JSX, ReactNode } from "react";  // Importing ReactNode type for typing children props
+import type { Metadata } from "next";
+import { Roboto } from "next/font/google";
+import "./globals.css";
+import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter';
+import { ThemeProvider } from "@mui/material";
+import theme from "../theme";
+import { JSX, ReactNode } from "react";
 import { AuthProvider } from "@/context/AuthContext";
+import Navbar from "./_components/Navbar";
 
 /**
  * Metadata for the entire application.
@@ -38,7 +35,6 @@ const roboto: { className: string; style: object; variable: string } = Roboto({
   variable: '--font-roboto',  // Custom CSS variable name for the font
 });
 
-
 /**
  * Root layout component that wraps the entire application.
  * Provides global configuration, theming, and caching.
@@ -49,10 +45,8 @@ const roboto: { className: string; style: object; variable: string } = Roboto({
  * @returns {JSX.Element} - The root layout structure.
  */
 export default function RootLayout({
-  navbar,
   children,  // React children passed to the layout (pages and components)
 }: Readonly<{
-  navbar: ReactNode;
   children: ReactNode;  // Type enforcement to ensure children are valid React nodes
 }>): JSX.Element {
   return (
@@ -61,7 +55,7 @@ export default function RootLayout({
         <AppRouterCacheProvider>  {/* Enables caching for Material UI in Next.js App Router */}
           <AuthProvider>
             <ThemeProvider theme={theme}>  {/* Provides the custom Material UI theme to the entire app */}
-              {navbar}
+              <Navbar />
               {children}  {/* Render the child components (pages and app content) */}
             </ThemeProvider>
           </AuthProvider>
