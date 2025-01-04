@@ -14,8 +14,8 @@ export default function RegisterLayout({
     children: ReactNode; // The children elements passed to the layout, usually form fields or buttons
 }>): JSX.Element {
     return (
-        // Wrap the children inside a Form component with a title "REGISTER"
-        <Form title="REGISTER">
+        // Wrap the children inside a Form component with a title "register"
+        <Form title="register">
             {children} {/* Render the children passed to this layout */}
         </Form>
     );

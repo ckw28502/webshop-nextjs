@@ -1,4 +1,5 @@
 import { Box, Paper, Typography } from "@mui/material";
+import { useTranslations } from "next-intl";
 import { JSX, ReactNode } from "react";
 
 /**
@@ -20,6 +21,9 @@ interface FormProps {
  * @returns {JSX.Element} A Box container with a Paper element that contains the form's title and children.
  */
 export default function Form({ title, children }: FormProps): JSX.Element {
+    // Use translations to handle dynamic language changes based on the 'FormComponent' namespace
+    const t = useTranslations("FormComponent");
+
     return (
         // Container for centering the form on the page
         <Box display="flex" justifyContent="center">
@@ -32,7 +36,7 @@ export default function Form({ title, children }: FormProps): JSX.Element {
                 <Paper elevation={3} sx={{ pt: 3, px: 5, pb: 4, minWidth: "100%" }}>
                     {/* Title section, centered inside the form */}
                     <Box display="flex" justifyContent="center">
-                        <Typography variant="h3">{title}</Typography>
+                        <Typography variant="h3">{t(title)}</Typography>
                     </Box>
                     {/* Children section, centered below the title */}
                     <Box display="flex" justifyContent="center" marginTop={5}>

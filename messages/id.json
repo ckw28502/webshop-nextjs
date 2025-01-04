@@ -1,8 +1,35 @@
 {
     "RegisterPage": {
-        "register": "Daftar",
-        "username": "Nama pengguna",
-        "password": "Kata sandi",
-        "confirmPassword": "Konfirmasi kata sandi"
+        "register": "DAFTAR",
+        "username": "NAMA PENGGUNA",
+        "password": "KATA SANDI",
+        "confirmPassword": "KONFIRMASI KATA SANDI",
+        "errors": {
+            "username": {
+                "required": "Nama Pengguna wajib diisi",
+                "minLength": "Nama Pengguna minimal 3 karakter",
+                "maxLength": "Nama Pengguna maksimal 50 karakter"
+            },
+            "password": {
+                "required": "Kata Sandi wajib diisi",
+                "minLength": "Kata Sandi minimal 8 karakter",
+                "uppercase": "Kata Sandi harus mengandung setidaknya satu huruf kapital",
+                "lowercase": "Kata Sandi harus mengandung setidaknya satu huruf kecil",
+                "number": "Kata Sandi harus mengandung setidaknya satu angka"
+            },
+            "confirmPassword": {
+                "required": "Konfirmasi Kata Sandi wajib diisi",
+                "mustMatch": "Kata Sandi harus sama"
+            }
+        }
+    },
+    "FormComponent": {
+        "register": "DAFTAR",
+        "login": "MASUK"
+    },
+    "Navbar": {
+        "register": "DAFTAR",
+        "login": "MASUK",
+        "logout": "KELUAR"
     }
 }

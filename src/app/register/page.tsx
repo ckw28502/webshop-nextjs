@@ -29,23 +29,24 @@ interface RegisterFormValues {
  * @returns {JSX.Element} A form containing fields for username, password, and password confirmation.
  */
 export default function RegisterPage(): JSX.Element {
+    // Hook for accessing translations for the page content
     const t = useTranslations("RegisterPage");
     
     // Yup validation schema for form fields
     const validationSchema = object({
         username: string()
-        .required("Enter your username!") // Validation: Username is required
-        .min(3, "Username must be at least 3 characters!") // Minimum username length
-        .max(50, "Username must be at most 50 characters!"), // Maximum username length
+        .required(t("errors.username.required")) // Validation: Username is required
+        .min(3, t("errors.username.minLength")) // Minimum username length
+        .max(50, t("errors.username.maxLength")), // Maximum username length
         password: string()
-            .required("Password is required!") // Validation: Password is required
-            .matches(/[A-Z]/, 'Password must contain at least one uppercase letter!') // Require at least one uppercase letter
-            .matches(/[a-z]/, 'Password must contain at least one lowercase letter!') // Require at least one lowercase letter
-            .matches(/[0-9]/, 'Password must contain at least one number!') // Require at least one digit
-            .min(8, 'Password must be at least 8 characters!'), // Minimum password length
+            .required(t("errors.password.required")) // Validation: Password is required
+            .matches(/[A-Z]/, t("errors.password.uppercase")) // Require at least one uppercase letter
+            .matches(/[a-z]/, t("errors.password.lowercase")) // Require at least one lowercase letter
+            .matches(/[0-9]/, t("errors.password.number")) // Require at least one digit
+            .min(8, t("errors.password.minLength")), // Minimum password length
         confirmationPassword: string()
-            .required("Confirmation password field is required!") // Validation: Confirmation password is required
-            .oneOf([ref("password")], "Passwords must match!") // Must match the password field
+            .required(t("errors.confirmPassword.required")) // Validation: Confirmation password is required
+            .oneOf([ref("password")], (t("errors.confirmPassword.mustMatch"))) // Must match the password field
     });
 
     /**
@@ -82,7 +83,7 @@ export default function RegisterPage(): JSX.Element {
             
             {/* Username input field */}
             <TextField
-                label="Username" // Field label
+                label={t("username")} // Field label
                 variant="standard" // Material UI variant
                 id="register-username" // Unique field identifier
                 name="username" // Field name (linked to Formik state)
@@ -101,7 +102,7 @@ export default function RegisterPage(): JSX.Element {
             {/* Password input field */}
             <Box mb={3}> {/* Box wrapper for password input */}
                 <InputPassword
-                    label="Password" // Field label
+                    label={t("password")} // Field label
                     id="register-password" // Unique field identifier
                     name="password" // Field name (linked to Formik state)
                     value={formik.values.password} // Bind value to Formik state
@@ -114,7 +115,7 @@ export default function RegisterPage(): JSX.Element {
         
             {/* Confirmation Password input field */}
             <InputPassword
-                label="Confirmation Password" // Field label
+                label={t("confirmPassword")} // Field label
                 id="register-confirmation-password" // Unique identifier
                 name="confirmationPassword" // Field name (linked to Formik state)
                 value={formik.values.confirmationPassword} // Bind value to Formik state
@@ -135,7 +136,7 @@ export default function RegisterPage(): JSX.Element {
                     }}
                     variant="contained" // Use contained button style (filled)
                 >
-                    {t("register").toLocaleUpperCase()} {/* Button text */}
+                    {t("register")} {/* Button text */}
                 </Button>
             </Box>
         </form>
