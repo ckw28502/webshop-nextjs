@@ -1,0 +1,8 @@
+{
+    "RegisterPage": {
+        "register": "Register",
+        "username": "Username",
+        "password": "Password",
+        "confirmPassword": "Confirm password"
+    }
+}

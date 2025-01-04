@@ -8,6 +8,7 @@ import { JSX } from "react";
 import userService from "@/services/userService";
 import toastify from "@/utils/toastify";
 import { RegisterDto } from "@/dto/requests/registerDto";
+import { useTranslations } from "next-intl";
 
 /**
  * @interface RegisterFormValues
@@ -28,6 +29,8 @@ interface RegisterFormValues {
  * @returns {JSX.Element} A form containing fields for username, password, and password confirmation.
  */
 export default function RegisterPage(): JSX.Element {
+    const t = useTranslations("RegisterPage");
+    
     // Yup validation schema for form fields
     const validationSchema = object({
         username: string()
@@ -132,7 +135,7 @@ export default function RegisterPage(): JSX.Element {
                     }}
                     variant="contained" // Use contained button style (filled)
                 >
-                    REGISTER {/* Button text */}
+                    {t("register").toLocaleUpperCase()} {/* Button text */}
                 </Button>
             </Box>
         </form>

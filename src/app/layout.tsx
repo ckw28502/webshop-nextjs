@@ -8,7 +8,8 @@ import { JSX, ReactNode } from "react";
 import { AuthProvider } from "@/context/AuthContext";
 import Navbar from "./_components/Navbar";
 import { ToastContainer } from "react-toastify";
-
+import { NextIntlClientProvider } from 'next-intl';
+import { getLocale, getMessages } from 'next-intl/server';
 /**
  * Metadata for the entire application.
  * This object defines the HTML metadata such as title and description.
@@ -45,20 +46,27 @@ const roboto: { className: string; style: object; variable: string } = Roboto({
  * @param {ReactNode} props.children - The children components to be rendered inside the layout.
  * @returns {JSX.Element} - The root layout structure.
  */
-export default function RootLayout({
+export default async function RootLayout({
   children,  // React children passed to the layout (pages and components)
 }: Readonly<{
   children: ReactNode;  // Type enforcement to ensure children are valid React nodes
-}>): JSX.Element {
+}>): Promise<JSX.Element> {
+
+  const locale = await getLocale();
+
+  const message = await getMessages();
+
   return (
-    <html lang="en">  {/* Set the language attribute for accessibility and SEO */}
+    <html lang={locale}>  {/* Set the language attribute for accessibility and SEO */}
       <body className={roboto.variable}>  {/* Apply the Roboto font variable as a class to the body */}
         <AppRouterCacheProvider>  {/* Enables caching for Material UI in Next.js App Router */}
           <AuthProvider>
             <ThemeProvider theme={theme}>  {/* Provides the custom Material UI theme to the entire app */}
-              <Navbar />  {/* Display the application navigation bar */}
-              {children}  {/* Render the child components (pages and app content) */}
-              <ToastContainer />  {/* Display toast notifications */}
+              <NextIntlClientProvider messages={message}>
+                <Navbar />  {/* Display the application navigation bar */}
+                {children}  {/* Render the child components (pages and app content) */}
+                <ToastContainer />  {/* Display toast notifications */}
+              </NextIntlClientProvider>
             </ThemeProvider>
           </AuthProvider>
         </AppRouterCacheProvider>

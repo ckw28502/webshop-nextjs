@@ -1,0 +1,8 @@
+{
+    "RegisterPage": {
+        "register": "Daftar",
+        "username": "Nama pengguna",
+        "password": "Kata sandi",
+        "confirmPassword": "Konfirmasi kata sandi"
+    }
+}
