@@ -21,6 +21,12 @@
                 "required": "Konfirmasi Kata Sandi wajib diisi",
                 "mustMatch": "Kata Sandi harus sama"
             }
+        },
+        "response": {
+            "success": "Pengguna berhasil terdaftar",
+            "errors": {
+                "USER_USERNAME_EXISTS": "Nama Pengguna sudah digunakan"
+            }
         }
     },
     "FormComponent": {

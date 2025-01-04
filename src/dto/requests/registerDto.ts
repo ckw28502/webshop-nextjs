@@ -1,3 +1,5 @@
+import { Locale } from "@/i18n/const";
+
 /**
  * RegisterDto interface - Represents the data transfer object (DTO) used for user registration.
  * This structure is typically used when sending registration data to the server.
@@ -21,4 +23,15 @@ export interface RegisterDto {
      * @example "password123"
      */
     password: string;
+
+    /**
+     * The language preference of the user.
+     * This indicates the preferred locale for the user, which could affect how content is displayed,
+     * such as translations or regional settings.
+     * 
+     * @type {Locale}
+     * @example "en"
+     * @example "id"
+     */
+    language: Locale;
 };

@@ -21,6 +21,12 @@
                 "required": "Confirm Password is required",
                 "mustMatch": "Passwords must match"
             }
+        },
+        "response": {
+            "success": "User registered successfully",
+            "errors": {
+                "USER_USERNAME_EXISTS": "Username is already taken"
+            }
         }
     },
     "FormComponent": {

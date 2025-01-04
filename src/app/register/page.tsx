@@ -9,6 +9,9 @@ import userService from "@/services/userService";
 import toastify from "@/utils/toastify";
 import { RegisterDto } from "@/dto/requests/registerDto";
 import { useTranslations } from "next-intl";
+import { getLocale } from "next-intl/server";
+import { Locale } from "@/i18n/const";
+import { getErrorMessage, getSuccessMessage } from "@/utils/httpResponseHandler";
 
 /**
  * @interface RegisterFormValues
@@ -56,12 +59,14 @@ export default function RegisterPage(): JSX.Element {
      * @param {RegisterFormValues} values - User-entered form data containing username, password, and confirmation password.
      */
     async function register(values: RegisterFormValues) {
-        const request: RegisterDto = { ...values }; // Prepare data for API request
+        const language = await getLocale() as Locale;
+
+        const request: RegisterDto = { ...values, language}; // Prepare data for API request
 
         userService.createUser(request)
-        .then(() => toastify.toastSuccess("User registered successfully!")) // Display success notification
+        .then(() => toastify.toastSuccess(t(getSuccessMessage()))) // Display success notification
         .catch((error) => { // Handle error response
-            toastify.toastError(error.response.data); // Show error notification
+            toastify.toastError(t(getErrorMessage(error.response.data))); // Show error notification
         })
     }
 
