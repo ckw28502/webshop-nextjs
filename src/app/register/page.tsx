@@ -35,18 +35,18 @@ export default function RegisterPage(): JSX.Element {
     // Yup validation schema for form fields
     const validationSchema = object({
         username: string()
-        .required(t("errors.username.required")) // Validation: Username is required
-        .min(3, t("errors.username.minLength")) // Minimum username length
-        .max(50, t("errors.username.maxLength")), // Maximum username length
+        .required("errors.username.required") // Validation: Username is required
+        .min(3, "errors.username.minLength") // Minimum username length
+        .max(50, "errors.username.maxLength"), // Maximum username length
         password: string()
-            .required(t("errors.password.required")) // Validation: Password is required
-            .matches(/[A-Z]/, t("errors.password.uppercase")) // Require at least one uppercase letter
-            .matches(/[a-z]/, t("errors.password.lowercase")) // Require at least one lowercase letter
-            .matches(/[0-9]/, t("errors.password.number")) // Require at least one digit
-            .min(8, t("errors.password.minLength")), // Minimum password length
+            .required("errors.password.required") // Validation: Password is required
+            .matches(/[A-Z]/, "errors.password.uppercase") // Require at least one uppercase letter
+            .matches(/[a-z]/, "errors.password.lowercase") // Require at least one lowercase letter
+            .matches(/[0-9]/, "errors.password.number") // Require at least one digit
+            .min(8, "errors.password.minLength"), // Minimum password length
         confirmationPassword: string()
-            .required(t("errors.confirmPassword.required")) // Validation: Confirmation password is required
-            .oneOf([ref("password")], (t("errors.confirmPassword.mustMatch"))) // Must match the password field
+            .required("errors.confirmPassword.required") // Validation: Confirmation password is required
+            .oneOf([ref("password")], "errors.confirmPassword.mustMatch") // Must match the password field
     });
 
     /**
@@ -92,7 +92,7 @@ export default function RegisterPage(): JSX.Element {
                 onChange={formik.handleChange} // Update state on change
                 onBlur={formik.handleBlur} // Trigger validation on blur
                 error={formik.touched.username && Boolean(formik.errors.username)} // Display error state if field is invalid and touched
-                helperText={formik.touched.username && formik.errors.username} // Display validation error message
+                helperText={formik.touched.username && t(formik.errors.username)} // Display validation error message
                 sx={{
                     mb: 3, // Margin-bottom for spacing
                     minWidth: "100%" // Minimum width for responsive design
@@ -109,7 +109,7 @@ export default function RegisterPage(): JSX.Element {
                     onChange={formik.handleChange} // Update state on change
                     onBlur={formik.handleBlur} // Trigger validation on blur
                     error={formik.touched.password && Boolean(formik.errors.password)} // Display error if invalid and touched
-                    helperText={formik.touched.password && formik.errors.password} // Show error message if invalid
+                    helperText={formik.touched.password && t(formik.errors.password)} // Show error message if invalid
                 />
             </Box>
         
@@ -122,7 +122,7 @@ export default function RegisterPage(): JSX.Element {
                 onChange={formik.handleChange} // Update state on change
                 onBlur={formik.handleBlur} // Trigger validation on blur
                 error={formik.touched.confirmationPassword && Boolean(formik.errors.confirmationPassword)} // Display error if invalid and touched
-                helperText={formik.touched.confirmationPassword && formik.errors.confirmationPassword} // Show error message if invalid
+                helperText={formik.touched.confirmationPassword && t(formik.errors.confirmationPassword)} // Show error message if invalid
             />
         
             {/* Submit button to register user */}
