@@ -4,6 +4,7 @@ import { useAuth } from "@/context/AuthContext";
 import { AppBar, Box, Button, Toolbar, Typography } from "@mui/material";
 import Link from "next/link";
 import { JSX } from "react";
+import LightDarkModeSwitch from "./LightDarkModeSwitch";
 
 /**
  * Navbar component that displays navigation links based on authentication status.
@@ -21,6 +22,7 @@ export default function Navbar(): JSX.Element {
                     <Typography variant="h6" sx={{ flexGrow: 1, ml: 1 }}>
                         WEBSHOP
                     </Typography>
+                    <LightDarkModeSwitch />
                     {isAuthenticated ? (
                         <Link href="/logout" passHref>
                             <Button color="inherit">LOGOUT</Button>
