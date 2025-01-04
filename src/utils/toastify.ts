@@ -5,28 +5,64 @@ import { Bounce, toast } from "react-toastify";
  * 
  * @param {string} message - The error message to be displayed in the toast.
  * 
- * This function uses `react-toastify` to show an error notification with custom settings like auto-close time, position, etc.
+ * This function utilizes `react-toastify` to present an error notification. 
+ * The toast is displayed at the bottom-right corner of the screen and disappears 
+ * automatically after 5 seconds. Users can manually close it by clicking on it, 
+ * and the progress bar pauses on hover.
  * 
  * @returns {void} This function does not return any value.
  */
 function toastError(message: string): void {
-    // Display the error toast with custom settings
     toast.error(message, {
-        position: "bottom-right", // Toast will appear at the bottom-right of the screen
-        autoClose: 5000, // Auto-close the toast after 5000ms (5 seconds)
-        hideProgressBar: false, // Show the progress bar
-        closeOnClick: true, // Allow closing the toast by clicking on it
-        pauseOnHover: true, // Pause the progress bar when hovering over the toast
-        draggable: true, // Allow the toast to be draggable
-        progress: undefined, // No custom progress bar configuration
-        theme: "colored", // Use the colored theme for the toast (can be 'light', 'dark', 'colored')
-        transition: Bounce, // Use the Bounce transition effect for the toast
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        transition: Bounce,
     });
 }
 
-// Export the toastError function as part of the toastify object
+/**
+ * Display a success toast notification.
+ * 
+ * @param {string} message - The success message to be displayed in the toast.
+ * 
+ * This function leverages `react-toastify` to show a success notification. 
+ * The toast appears at the bottom-right corner of the screen and closes automatically 
+ * after 5 seconds. Users can close it by clicking, and hovering over the toast 
+ * pauses the progress bar.
+ * 
+ * @returns {void} This function does not return any value.
+ */
+function toastSuccess(message: string): void {
+    toast.success(message, {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        transition: Bounce,
+    });
+}
+
+/**
+ * Object containing utility functions for displaying toast notifications.
+ * 
+ * Provides methods for showing both error and success toasts using `react-toastify`. 
+ * 
+ * @property {Function} toastError - Displays an error notification.
+ * @property {Function} toastSuccess - Displays a success notification.
+ */
 const toastify = {
-    toastError // Add the toastError function to the toastify object
+    toastError,
+    toastSuccess,
 };
 
-export default toastify; // Export the toastify object for usage in other parts of the app
+export default toastify;

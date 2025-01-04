@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // URL of the API, fetched from environment variables for secure configuration
-const API_URL: string = process.env.NEXT_PUBLIC_API_URL;
+const API_URL: string | undefined = process.env.NEXT_PUBLIC_API_URL;
 
 /**
  * Axios instance creation - This instance is used to configure and manage API requests.

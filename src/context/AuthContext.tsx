@@ -2,43 +2,57 @@
 
 import { createContext, Dispatch, JSX, ReactNode, SetStateAction, useContext, useState } from "react";
 
-// Interface to define the shape of the authentication context state
+/**
+ * @interface AuthContextType
+ * Represents the structure of the authentication context state.
+ * 
+ * @property {boolean} isAuthenticated - Indicates if the user is authenticated.
+ * @property {Dispatch<SetStateAction<boolean>>} setIsAuthenticated - Function to update authentication status.
+ */
 interface AuthContextType {
-    isAuthenticated: boolean; // The authentication status (true or false)
-    setIsAuthenticated: Dispatch<SetStateAction<boolean>>; // Function to update the authentication status
+    isAuthenticated: boolean;
+    setIsAuthenticated: Dispatch<SetStateAction<boolean>>;
 }
 
+/**
+ * @interface AuthProviderProps
+ * Props for the AuthProvider component, which wraps child components to provide authentication state.
+ * 
+ * @property {ReactNode} children - Child components to receive the authentication context.
+ */
 interface AuthProviderProps {
-    children: ReactNode; // The children elements to be wrapped by the AuthProvider
+    children: ReactNode;
 }
 
-// Create a context to manage authentication state across the application
+// Create a context with default values for authentication state
 const AuthContext = createContext<AuthContextType>({
-    isAuthenticated: false, // Default authentication status is false (not authenticated)
-    setIsAuthenticated: () => {} // Placeholder function for setting the authentication status
+    isAuthenticated: false, // Default to not authenticated
+    setIsAuthenticated: () => {} // Placeholder function to avoid undefined errors
 });
 
 /**
- * AuthProvider component - Provides authentication state to the rest of the application.
+ * AuthProvider component - Wraps application components and manages global authentication state.
  * 
- * @param {AuthProviderProps} props - The props containing children elements.
- * @returns {JSX.Element} The context provider wrapped around the children.
+ * @param {AuthProviderProps} props - Props containing children components to be wrapped by the provider.
+ * @returns {JSX.Element} Context provider that passes authentication state to children.
  */
 export const AuthProvider = ({ children }: AuthProviderProps): JSX.Element => {
-    // State to track the authentication status
+    // State hook to manage and track authentication status
     const [isAuthenticated, setIsAuthenticated] = useState(false);
 
     return (
-        // Providing the authentication state and setter function to the children
+        /**
+         * Provides the authentication state and setter to child components.
+         */
         <AuthContext.Provider value={{ isAuthenticated, setIsAuthenticated }}>
-            {children} {/* Render children components */}
+            {children} {/* Render wrapped child components */}
         </AuthContext.Provider>  
     );
 }
 
 /**
- * useAuth hook - Custom hook to access the authentication context.
+ * useAuth hook - Provides easy access to authentication context.
  * 
- * @returns {AuthContextType} The authentication context with `isAuthenticated` and `setIsAuthenticated`.
+ * @returns {AuthContextType} The current authentication context, including state and setter.
  */
 export const useAuth = (): AuthContextType => useContext(AuthContext);

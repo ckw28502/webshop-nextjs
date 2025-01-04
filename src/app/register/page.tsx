@@ -7,128 +7,130 @@ import InputPassword from "../_components/inputs/Password";
 import { JSX } from "react";
 import userService from "@/services/userService";
 import toastify from "@/utils/toastify";
-import responseHandler from "@/utils/responseHandler";
+import { RegisterDto } from "@/dto/requests/registerDto";
 
 /**
- * Interface for the values used in the registration form.
- * Defines the structure of the form data, which includes a username, password, and confirmation password.
+ * @interface RegisterFormValues
+ * Represents the structure of the values used in the registration form.
+ * @property {string} username - The username entered by the user.
+ * @property {string} password - The password entered by the user.
+ * @property {string} confirmationPassword - The confirmation of the entered password.
  */
 interface RegisterFormValues {
-    username: string;          // The username entered by the user.
-    password: string;          // The password entered by the user.
-    confirmationPassword: string;  // The password confirmation field to ensure passwords match.
+    username: string;
+    password: string;
+    confirmationPassword: string;
 }
 
 /**
- * RegisterPage component - A form for user registration with validation and password confirmation.
+ * RegisterPage component - Provides a user registration form with validation for username, password, and confirmation password.
  * 
- * @returns {JSX.Element} The registration form with fields for username, password, and confirmation password.
+ * @returns {JSX.Element} A form containing fields for username, password, and password confirmation.
  */
 export default function RegisterPage(): JSX.Element {
-    // Validation schema using Yup for form fields
+    // Yup validation schema for form fields
     const validationSchema = object({
         username: string()
-        .required("Enter your username!") // Username is required
-        .min(3, "Username must be at least 3 characters!") // Username must be at least 3 characters
-        .max(50, "Username must be at most 50 characters!"), // Username must be at most 50 characters
+        .required("Enter your username!") // Validation: Username is required
+        .min(3, "Username must be at least 3 characters!") // Minimum username length
+        .max(50, "Username must be at most 50 characters!"), // Maximum username length
         password: string()
-            .required("Password is required!") // Password is required
-            .matches(/[A-Z]/, 'Password must contain at least one uppercase letter!') // Must contain at least one uppercase letter
-            .matches(/[a-z]/, 'Password must contain at least one lowercase letter!') // Must contain at least one lowercase letter
-            .matches(/[0-9]/, 'Password must contain at least one number!') // Must contain at least one number
-            .min(8, 'Password must be at least 8 characters!'), // Password must be at least 8 characters long
+            .required("Password is required!") // Validation: Password is required
+            .matches(/[A-Z]/, 'Password must contain at least one uppercase letter!') // Require at least one uppercase letter
+            .matches(/[a-z]/, 'Password must contain at least one lowercase letter!') // Require at least one lowercase letter
+            .matches(/[0-9]/, 'Password must contain at least one number!') // Require at least one digit
+            .min(8, 'Password must be at least 8 characters!'), // Minimum password length
         confirmationPassword: string()
-            .required("Confirmation password field is required!") // Confirmation password is required
-            .oneOf([ref("password")], "Password must match!") // Must match the password field
+            .required("Confirmation password field is required!") // Validation: Confirmation password is required
+            .oneOf([ref("password")], "Passwords must match!") // Must match the password field
     });
 
     /**
-     * Registers a new user with the given form values.
-     * This function creates a user by calling the `createUser` service method and handles any errors during the process.
+     * Registers a new user by submitting form data to the createUser service method.
+     * Handles success and error responses using toast notifications.
      * 
-     * @param {RegisterFormValues} values - The form values containing username, password, and confirmation password.
+     * @param {RegisterFormValues} values - User-entered form data containing username, password, and confirmation password.
      */
     async function register(values: RegisterFormValues) {
-        const request: RegisterRequest = { ...values }; // Prepare the request object
+        const request: RegisterDto = { ...values }; // Prepare data for API request
 
-        try {
-            await userService.createUser(request); // Call the user service to create a new user
-        } catch (error) {
-            // Handle any error by showing an error message using toastify
-            toastify.toastError(responseHandler.getErrorMessage(error));
-        };
+        userService.createUser(request)
+        .then(() => toastify.toastSuccess("User registered successfully!")) // Display success notification
+        .catch((error) => { // Handle error response
+            toastify.toastError(error.response.data); // Show error notification
+        })
     }
 
-    // Formik hook for managing form state, validation, and submission
+    // Formik hook to manage form state, validation, and submission
     const formik = useFormik({
         initialValues: {
-            username: "", // Initial value for username
-            password: "", // Initial value for password
-            confirmationPassword: "", // Initial value for confirmation password
+            username: "", // Default username field value
+            password: "", // Default password field value
+            confirmationPassword: "", // Default confirmation password field value
         },
-        validationSchema: validationSchema, // Apply validation schema
-        onSubmit: async(values: RegisterFormValues): Promise<void> => { // Handle form submission
-            await register(values); // Call register function on form submission
+        validationSchema: validationSchema, // Attach Yup validation schema
+        onSubmit: async(values: RegisterFormValues): Promise<void> => { // Form submission handler
+            await register(values); // Trigger registration logic
         }
     });
 
     return (
-        <form onSubmit={formik.handleSubmit}> {/* Handle form submission with Formik */}
-        
-            {/* Username field */}
+        <form onSubmit={formik.handleSubmit}> {/* Attach Formik submission handler to form */}
+            
+            {/* Username input field */}
             <TextField
-                label="Username" // Label for the field
-                variant="standard" // Material UI standard variant
-                id="register-username" // Unique ID for the field
-                name="username" // Name of the field (used in Formik state)
-                fullWidth // Full width input
-                value={formik.values.username} // Bind Formik state value
-                onChange={formik.handleChange} // Handle value change with Formik
-                onBlur={formik.handleBlur} // Handle field blur (validation trigger)
-                error={formik.touched.username && Boolean(formik.errors.username)} // Show error if touched and invalid
-                helperText={formik.touched.username && formik.errors.username} // Show error message if touched and invalid
+                label="Username" // Field label
+                variant="standard" // Material UI variant
+                id="register-username" // Unique field identifier
+                name="username" // Field name (linked to Formik state)
+                fullWidth // Expand field to full width
+                value={formik.values.username} // Bind value to Formik state
+                onChange={formik.handleChange} // Update state on change
+                onBlur={formik.handleBlur} // Trigger validation on blur
+                error={formik.touched.username && Boolean(formik.errors.username)} // Display error state if field is invalid and touched
+                helperText={formik.touched.username && formik.errors.username} // Display validation error message
                 sx={{
-                    mb: 3, // Margin bottom for spacing
-                    minWidth: "100%" // Minimum width for the input
+                    mb: 3, // Margin-bottom for spacing
+                    minWidth: "100%" // Minimum width for responsive design
                 }}
             />
         
-            {/* Password field */}
-            <Box mb={3}> {/* Box to contain the password input */}
+            {/* Password input field */}
+            <Box mb={3}> {/* Box wrapper for password input */}
                 <InputPassword
-                    label="Password" // Label for the password field
-                    id="register-password" // Unique ID for the field
-                    name="password" // Name of the field (used in Formik state)
-                    value={formik.values.password} // Bind Formik state value
-                    onChange={formik.handleChange} // Handle value change with Formik
-                    onBlur={formik.handleBlur} // Handle field blur (validation trigger)
-                    error={formik.touched.password && Boolean(formik.errors.password)} // Show error if touched and invalid
-                    helperText={formik.touched.password && formik.errors.password} // Show error message if touched and invalid
+                    label="Password" // Field label
+                    id="register-password" // Unique field identifier
+                    name="password" // Field name (linked to Formik state)
+                    value={formik.values.password} // Bind value to Formik state
+                    onChange={formik.handleChange} // Update state on change
+                    onBlur={formik.handleBlur} // Trigger validation on blur
+                    error={formik.touched.password && Boolean(formik.errors.password)} // Display error if invalid and touched
+                    helperText={formik.touched.password && formik.errors.password} // Show error message if invalid
                 />
             </Box>
         
-            {/* Confirmation Password field */}
+            {/* Confirmation Password input field */}
             <InputPassword
-                label="Confirmation Password" // Label for the confirmation password field
-                id="register-confirmation-password" // Unique ID for the field
-                name="confirmationPassword" // Name of the field (used in Formik state)
-                value={formik.values.confirmationPassword} // Bind Formik state value
-                onChange={formik.handleChange} // Handle value change with Formik
-                onBlur={formik.handleBlur} // Handle field blur (validation trigger)
-                error={formik.touched.confirmationPassword && Boolean(formik.errors.confirmationPassword)} // Show error if touched and invalid
-                helperText={formik.touched.confirmationPassword && formik.errors.confirmationPassword} // Show error message if touched and invalid
+                label="Confirmation Password" // Field label
+                id="register-confirmation-password" // Unique identifier
+                name="confirmationPassword" // Field name (linked to Formik state)
+                value={formik.values.confirmationPassword} // Bind value to Formik state
+                onChange={formik.handleChange} // Update state on change
+                onBlur={formik.handleBlur} // Trigger validation on blur
+                error={formik.touched.confirmationPassword && Boolean(formik.errors.confirmationPassword)} // Display error if invalid and touched
+                helperText={formik.touched.confirmationPassword && formik.errors.confirmationPassword} // Show error message if invalid
             />
         
-            {/* Submit button */}
-            <Box display="flex" justifyContent="center"> {/* Center the button */}
+            {/* Submit button to register user */}
+            <Box display="flex" justifyContent="center"> {/* Center the button horizontally */}
                 <Button 
-                    type="submit" // Button type to trigger form submission
-                    id="btn-register" // Unique ID for the button
+                    type="submit" // Submit button type
+                    id="btn-register" // Unique button identifier
                     sx={{
-                        minWidth: { xs: "90%", sm: "70%", md: "50%" }, // Responsive width
-                        mt: 5 // Margin top for spacing
+                        minWidth: { xs: "90%", sm: "70%", md: "50%" }, // Responsive width based on screen size
+                        mt: 5 // Margin-top for spacing
                     }}
-                    variant="contained" // Material UI contained button style
+                    variant="contained" // Use contained button style (filled)
                 >
                     REGISTER {/* Button text */}
                 </Button>
