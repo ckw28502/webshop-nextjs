@@ -28,7 +28,7 @@ export default function Navbar(): JSX.Element {
                     <Typography variant="h6" sx={{ flexGrow: 1, ml: 1 }}>
                         WEBSHOP
                     </Typography>
-                    <LanguageSelect authenticated={isAuthenticated} />
+                    <LanguageSelect />
                     <LightDarkModeSwitch />
                     {isAuthenticated ? (
                         <Link href="/logout" passHref>

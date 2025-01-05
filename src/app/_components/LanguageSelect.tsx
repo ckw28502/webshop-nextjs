@@ -5,25 +5,11 @@ import { useLocale } from "next-intl";
 import { ChangeEvent, JSX } from "react";
 
 /**
- * @interface LanguageSelectProps
- * Represents the props that can be passed to the LanguageSelect component.
- * 
- * @property {boolean} authenticated - A flag indicating whether the user is authenticated or not.
- * If the user is authenticated, the language preference will be saved in the system.
- */
-interface LanguageSelectProps {
-    authenticated: boolean;
-}
-
-/**
  * LanguageSelect component - A dropdown selection for changing the language preference.
- * Allows users to select their preferred language (English or Bahasa Indonesia) from a list of options.
- * 
- * @param {LanguageSelectProps} props - The props object containing the `authenticated` flag.
  * 
  * @returns {JSX.Element} - The rendered LanguageSelect component containing a dropdown to select a language.
  */
-export default function LanguageSelect({ authenticated }: LanguageSelectProps): JSX.Element {
+export default function LanguageSelect(): JSX.Element {
     // Get the current locale (language) from the next-intl context
     const locale = useLocale();
 
@@ -36,7 +22,7 @@ export default function LanguageSelect({ authenticated }: LanguageSelectProps): 
      */
     function onLanguageChange(event: ChangeEvent<HTMLSelectElement>) {
         // Set the new locale based on the selected value
-        setLocale(event.target.value as Locale, authenticated);
+        setLocale(event.target.value as Locale);
     }
 
     return (
