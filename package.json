@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test": "cypress open"
+    "test": "npm run build && concurrently \"npm run start\" \"cypress open\""
   },
   "dependencies": {
     "@emotion/cache": "^11.14.0",
@@ -30,6 +30,7 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "concurrently": "^9.1.2",
     "cypress": "^13.17.0",
     "eslint": "^9",
     "eslint-config-next": "15.1.3",

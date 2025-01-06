@@ -18,7 +18,7 @@
                 "number": "Password must contain at least one number"
             },
             "confirmPassword": {
-                "required": "Confirm Password is required",
+                "required": "Confirm password is required",
                 "mustMatch": "Passwords must match"
             }
         },

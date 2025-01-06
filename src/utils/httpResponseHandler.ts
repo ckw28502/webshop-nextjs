@@ -6,7 +6,7 @@
  * @returns {string} - The formatted error message with the standard "response.error" prefix.
  */
 export function getErrorMessage(errorMessage: string): string {
-    return "response.error." + errorMessage;
+    return "response.errors." + errorMessage;
 }
 
 /**

@@ -9,8 +9,6 @@ import userService from "@/services/userService";
 import toastify from "@/utils/toastify";
 import { RegisterDto } from "@/dto/requests/registerDto";
 import { useTranslations } from "next-intl";
-import { getLocale } from "next-intl/server";
-import { Locale } from "@/i18n/const";
 import { getErrorMessage, getSuccessMessage } from "@/utils/httpResponseHandler";
 
 /**
@@ -38,9 +36,9 @@ export default function RegisterPage(): JSX.Element {
     // Yup validation schema for form fields
     const validationSchema = object({
         username: string()
-        .required("errors.username.required") // Validation: Username is required
-        .min(3, "errors.username.minLength") // Minimum username length
-        .max(50, "errors.username.maxLength"), // Maximum username length
+            .required("errors.username.required") // Validation: Username is required
+            .min(3, "errors.username.minLength") // Minimum username length
+            .max(50, "errors.username.maxLength"), // Maximum username length
         password: string()
             .required("errors.password.required") // Validation: Password is required
             .matches(/[A-Z]/, "errors.password.uppercase") // Require at least one uppercase letter
@@ -59,13 +57,13 @@ export default function RegisterPage(): JSX.Element {
      * @param {RegisterFormValues} values - User-entered form data containing username, password, and confirmation password.
      */
     async function register(values: RegisterFormValues) {
-        const language = await getLocale() as Locale;
-
-        const request: RegisterDto = { ...values, language}; // Prepare data for API request
+        const request: RegisterDto = { ...values}; // Prepare data for API request
 
         userService.createUser(request)
         .then(() => toastify.toastSuccess(t(getSuccessMessage()))) // Display success notification
         .catch((error) => { // Handle error response
+            console.log(getErrorMessage(error.response.data));
+            
             toastify.toastError(t(getErrorMessage(error.response.data))); // Show error notification
         })
     }
@@ -97,7 +95,7 @@ export default function RegisterPage(): JSX.Element {
                 onChange={formik.handleChange} // Update state on change
                 onBlur={formik.handleBlur} // Trigger validation on blur
                 error={formik.touched.username && Boolean(formik.errors.username)} // Display error state if field is invalid and touched
-                helperText={formik.touched.username && t(formik.errors.username)} // Display validation error message
+                helperText={formik.touched.username && Boolean(formik.errors.username) && t(formik.errors.username)} // Display validation error message
                 sx={{
                     mb: 3, // Margin-bottom for spacing
                     minWidth: "100%" // Minimum width for responsive design
@@ -114,7 +112,7 @@ export default function RegisterPage(): JSX.Element {
                     onChange={formik.handleChange} // Update state on change
                     onBlur={formik.handleBlur} // Trigger validation on blur
                     error={formik.touched.password && Boolean(formik.errors.password)} // Display error if invalid and touched
-                    helperText={formik.touched.password && t(formik.errors.password)} // Show error message if invalid
+                    helperText={formik.touched.password && Boolean(formik.errors.password) && t(formik.errors.password)} // Show error message if invalid
                 />
             </Box>
         
@@ -127,7 +125,7 @@ export default function RegisterPage(): JSX.Element {
                 onChange={formik.handleChange} // Update state on change
                 onBlur={formik.handleBlur} // Trigger validation on blur
                 error={formik.touched.confirmationPassword && Boolean(formik.errors.confirmationPassword)} // Display error if invalid and touched
-                helperText={formik.touched.confirmationPassword && t(formik.errors.confirmationPassword)} // Show error message if invalid
+                helperText={formik.touched.confirmationPassword && Boolean(formik.errors.confirmationPassword) && t(formik.errors.confirmationPassword)} // Show error message if invalid
             />
         
             {/* Submit button to register user */}
