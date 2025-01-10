@@ -31,7 +31,7 @@
             "success": "Please check your email to confirm your registration",
             "errors": {
                 "USERNAME_EXISTS": "Username is already taken",
-                "EMAIL_EXISTS": "Email is already taken"
+                "EMAIL_EXISTS": "Email address is already taken"
             }
         }
     },
