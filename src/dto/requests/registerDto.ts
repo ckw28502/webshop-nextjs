@@ -13,6 +13,14 @@ export interface RegisterDto {
      */
     username: string;
 
+     /**
+     * The email address of the user.
+     * 
+     * @type {string}
+     * @example "john.doe@example.com"
+     */
+     email: string;
+
     /**
      * The password of the user being registered.
      * It is expected to be a secure string, usually hashed before storage on the server.

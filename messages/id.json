@@ -2,30 +2,36 @@
     "RegisterPage": {
         "register": "DAFTAR",
         "username": "NAMA PENGGUNA",
+        "email": "ALAMAT EMAIL",
         "password": "KATA SANDI",
         "confirmPassword": "KONFIRMASI KATA SANDI",
         "errors": {
             "username": {
-                "required": "Nama Pengguna wajib diisi",
-                "minLength": "Nama Pengguna minimal 3 karakter",
-                "maxLength": "Nama Pengguna maksimal 50 karakter"
+                "required": "Nama pengguna wajib diisi",
+                "minLength": "Nama pengguna minimal 3 karakter",
+                "maxLength": "Nama pengguna maksimal 50 karakter"
+            },
+            "email": {
+                "required": "Alamat email wajib diisi",
+                "valid": "Alamat email tidak valid"
             },
             "password": {
-                "required": "Kata Sandi wajib diisi",
-                "minLength": "Kata Sandi minimal 8 karakter",
-                "uppercase": "Kata Sandi harus mengandung setidaknya satu huruf kapital",
-                "lowercase": "Kata Sandi harus mengandung setidaknya satu huruf kecil",
-                "number": "Kata Sandi harus mengandung setidaknya satu angka"
+                "required": "Kata sandi wajib diisi",
+                "minLength": "Kata sandi minimal 8 karakter",
+                "uppercase": "Kata sandi harus mengandung setidaknya satu huruf kapital",
+                "lowercase": "Kata sandi harus mengandung setidaknya satu huruf kecil",
+                "number": "Kata sandi harus mengandung setidaknya satu angka"
             },
             "confirmPassword": {
-                "required": "Konfirmasi Kata Sandi wajib diisi",
-                "mustMatch": "Kata Sandi harus sama"
+                "required": "Konfirmasi kata sandi wajib diisi",
+                "mustMatch": "Kata sandi harus sama"
             }
         },
         "response": {
-            "success": "Pengguna berhasil terdaftar",
+            "success": "Periksa email Anda untuk mengkonfirmasi pendaftaran Anda",
             "errors": {
-                "USER_USERNAME_EXISTS": "Nama Pengguna sudah digunakan"
+                "USERNAME_EXISTS": "Nama pengguna sudah digunakan",
+                "EMAIL_EXISTS": "Alamat email sudah digunakan"
             }
         }
     },

@@ -15,11 +15,13 @@ import { getErrorMessage, getSuccessMessage } from "@/utils/httpResponseHandler"
  * @interface RegisterFormValues
  * Represents the structure of the values used in the registration form.
  * @property {string} username - The username entered by the user.
+ * @property {string} email - The email address entered by the user.
  * @property {string} password - The password entered by the user.
  * @property {string} confirmationPassword - The confirmation of the entered password.
  */
 interface RegisterFormValues {
     username: string;
+    email: string;
     password: string;
     confirmationPassword: string;
 }
@@ -36,17 +38,20 @@ export default function RegisterPage(): JSX.Element {
     // Yup validation schema for form fields
     const validationSchema = object({
         username: string()
-            .required("errors.username.required") // Validation: Username is required
+            .required("errors.username.required") // Username is required
             .min(3, "errors.username.minLength") // Minimum username length
             .max(50, "errors.username.maxLength"), // Maximum username length
+        email: string()
+            .required("errors.email.required") // Email is required
+            .email("errors.email.valid"), // Must be a valid email format
         password: string()
-            .required("errors.password.required") // Validation: Password is required
+            .required("errors.password.required") // Password is required
             .matches(/[A-Z]/, "errors.password.uppercase") // Require at least one uppercase letter
             .matches(/[a-z]/, "errors.password.lowercase") // Require at least one lowercase letter
             .matches(/[0-9]/, "errors.password.number") // Require at least one digit
             .min(8, "errors.password.minLength"), // Minimum password length
         confirmationPassword: string()
-            .required("errors.confirmPassword.required") // Validation: Confirmation password is required
+            .required("errors.confirmPassword.required") // Confirmation password is required
             .oneOf([ref("password")], "errors.confirmPassword.mustMatch") // Must match the password field
     });
 
@@ -72,6 +77,7 @@ export default function RegisterPage(): JSX.Element {
     const formik = useFormik({
         initialValues: {
             username: "", // Default username field value
+            email: "", // Default username field value
             password: "", // Default password field value
             confirmationPassword: "", // Default confirmation password field value
         },
@@ -96,6 +102,23 @@ export default function RegisterPage(): JSX.Element {
                 onBlur={formik.handleBlur} // Trigger validation on blur
                 error={formik.touched.username && Boolean(formik.errors.username)} // Display error state if field is invalid and touched
                 helperText={formik.touched.username && Boolean(formik.errors.username) && t(formik.errors.username)} // Display validation error message
+                sx={{
+                    mb: 3, // Margin-bottom for spacing
+                    minWidth: "100%" // Minimum width for responsive design
+                }}
+            />
+            {/* Email input field */}
+            <TextField
+                label={t("email")} // Field label
+                variant="standard" // Material UI variant
+                id="register-email" // Unique field identifier
+                name="email" // Field name (linked to Formik state)
+                fullWidth // Expand field to full width
+                value={formik.values.email} // Bind value to Formik state
+                onChange={formik.handleChange} // Update state on change
+                onBlur={formik.handleBlur} // Trigger validation on blur
+                error={formik.touched.email && Boolean(formik.errors.email)} // Display error state if field is invalid and touched
+                helperText={formik.touched.email && Boolean(formik.errors.email) && t(formik.errors.email)} // Display validation error message
                 sx={{
                     mb: 3, // Margin-bottom for spacing
                     minWidth: "100%" // Minimum width for responsive design

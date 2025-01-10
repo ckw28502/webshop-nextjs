@@ -2,6 +2,7 @@
     "RegisterPage": {
         "register": "REGISTER",
         "username": "USERNAME",
+        "email": "EMAIL ADDRESS",
         "password": "PASSWORD",
         "confirmPassword": "CONFIRM PASSWORD",
         "errors": {
@@ -9,6 +10,10 @@
                 "required": "Username is required",
                 "minLength": "Username must be at least 3 characters",
                 "maxLength": "Username cannot be more than 50 characters"
+            },
+            "email": {
+                "required": "Email address is required",
+                "valid": "Email address is invalid"
             },
             "password": {
                 "required": "Password is required",
@@ -23,9 +28,10 @@
             }
         },
         "response": {
-            "success": "User registered successfully",
+            "success": "Please check your email to confirm your registration",
             "errors": {
-                "USER_USERNAME_EXISTS": "Username is already taken"
+                "USERNAME_EXISTS": "Username is already taken",
+                "EMAIL_EXISTS": "Email is already taken"
             }
         }
     },
