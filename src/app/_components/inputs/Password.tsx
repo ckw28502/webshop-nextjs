@@ -43,13 +43,13 @@ export default function InputPassword({
     onBlur,
     error,
     helperText
- }: InputPasswordProps): JSX.Element {
+ }: Readonly<InputPasswordProps>): JSX.Element {
     // State to track if the password is visible or hidden
-    const [isVisible, setVisibility] = useState(false);
+    const [isVisible, setIsVisible] = useState(false);
 
     // Method to toggle the visibility of the password
     function handleClickToggleVisibility(): void {
-        setVisibility(!isVisible);
+        setIsVisible(!isVisible);
     }
 
     return(

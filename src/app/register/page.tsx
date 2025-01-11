@@ -48,7 +48,7 @@ export default function RegisterPage(): JSX.Element {
             .required("errors.password.required") // Password is required
             .matches(/[A-Z]/, "errors.password.uppercase") // Require at least one uppercase letter
             .matches(/[a-z]/, "errors.password.lowercase") // Require at least one lowercase letter
-            .matches(/[0-9]/, "errors.password.number") // Require at least one digit
+            .matches(/\d/, "errors.password.number") // Require at least one digit
             .min(8, "errors.password.minLength"), // Minimum password length
         confirmationPassword: string()
             .required("errors.confirmPassword.required") // Confirmation password is required

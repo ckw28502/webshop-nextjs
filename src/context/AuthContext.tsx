@@ -1,6 +1,6 @@
 'use client';
 
-import { createContext, Dispatch, JSX, ReactNode, SetStateAction, useContext, useState } from "react";
+import { createContext, Dispatch, JSX, ReactNode, SetStateAction, useContext, useMemo, useState } from "react";
 
 /**
  * @interface AuthContextType
@@ -40,11 +40,13 @@ export const AuthProvider = ({ children }: AuthProviderProps): JSX.Element => {
     // State hook to manage and track authentication status
     const [isAuthenticated, setIsAuthenticated] = useState(false);
 
+    const authContextValue = useMemo(() => ({ isAuthenticated, setIsAuthenticated }), [isAuthenticated]);
+
     return (
         /**
          * Provides the authentication state and setter to child components.
          */
-        <AuthContext.Provider value={{ isAuthenticated, setIsAuthenticated }}>
+        <AuthContext.Provider value={authContextValue}>
             {children} {/* Render wrapped child components */}
         </AuthContext.Provider>  
     );
