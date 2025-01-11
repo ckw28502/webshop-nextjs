@@ -142,5 +142,11 @@ describe('Register page test', () => {
 
     // Verify success message
     cy.get("div").contains("Please check your email to confirm your registration").should("exist");
+
+    // Verify form has been reset.
+    cy.get("#register-username").should("have.value", "");
+    cy.get("#register-email").should("have.value", "");
+    cy.get("#register-password").should("have.value", "");
+    cy.get("#register-confirmation-password").should("have.value", "");
   });
 });

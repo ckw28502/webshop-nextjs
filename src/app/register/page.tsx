@@ -65,10 +65,11 @@ export default function RegisterPage(): JSX.Element {
         const request: RegisterDto = { ...values}; // Prepare data for API request
 
         userService.createUser(request)
-        .then(() => toastify.toastSuccess(t(getSuccessMessage()))) // Display success notification
-        .catch((error) => { // Handle error response
-            console.log(getErrorMessage(error.response.data));
-            
+        .then(() => {
+            toastify.toastSuccess(t(getSuccessMessage())); // Display success notification
+            formik.resetForm(); // Clear the form after successful submission
+        })
+        .catch((error) => { // Handle error response            
             toastify.toastError(t(getErrorMessage(error.response.data))); // Show error notification
         })
     }
