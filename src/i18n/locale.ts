@@ -14,7 +14,7 @@ export async function getLocale(): Promise<Locale> {
     const locale = await getLocaleFromCookie();
 
     // Return the locale or default to "en"
-    return locale || "en";
+    return locale ?? "en";
 }
 
 /**
