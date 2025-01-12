@@ -43,6 +43,7 @@ jobs:
         with:
           build: npm run build
           start: npm start
+          headed: true
 
       - name: Upload screenshots
         uses: actions/upload-artifact@v4
