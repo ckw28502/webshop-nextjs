@@ -41,7 +41,6 @@ jobs:
           build: npm run build
           start: npm start
         env:
-          API_URL: ${{ env.API_URL }}
           NEXT_PUBLIC_API_URL: ${{ env.API_URL }}
 
       - name: Upload screenshots
