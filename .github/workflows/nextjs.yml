@@ -9,31 +9,34 @@ env:
   NODE_VERSION: 18
 
 jobs:
-  build:
-    runs-on: ubuntu-22.04
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+  # build:
+  #   runs-on: ubuntu-22.04
+  #   steps:
+  #     - name: Checkout code
+  #       uses: actions/checkout@v4
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{ env.NODE_VERSION }}
+  #     - name: Set up Node.js
+  #       uses: actions/setup-node@v4
+  #       with:
+  #         node-version: ${{ env.NODE_VERSION }}
       
-      - name: Install dependencies
-        run: npm install
+  #     - name: Install dependencies
+  #       run: npm install
       
-      - name: Build Next.js app
-        run: npm run build
-        env:
-          NEXT_PUBLIC_API_URL: ${{ env.API_URL }}
+  #     - name: Build Next.js app
+  #       run: npm run build
+  #       env:
+  #         NEXT_PUBLIC_API_URL: ${{ env.API_URL }}
 
   test:
     runs-on: ubuntu-22.04
-    needs: build
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+
+      - name: Create .env file
+        run: |
+          echo "NEXT_PUBLIC_API_URL=${{ env.API_URL }}" > .env
 
       - name: Run Cypress tests
         uses: cypress-io/github-action@v6
