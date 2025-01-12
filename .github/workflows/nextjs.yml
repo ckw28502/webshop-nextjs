@@ -25,6 +25,14 @@ jobs:
       
       - name: Build Next.js app
         run: npm run build
+        env:
+          NEXT_PUBLIC_API_URL: ${{ env.API_URL }}
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: nextjs-build
+          path: .next
   
   test:
     runs-on: ubuntu-22.04
@@ -32,14 +40,21 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Download build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: nextjs-build
+          path: .next
+
       - name: Run Cypress tests
         uses: cypress-io/github-action@v6
         with:
-          build: npm run build
           start: npm start
+        env:
+          API_URL: ${{ env.API_URL }}
 
       - name: Upload screenshots
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         if: failure()
         with:
           name: cypress-screenshots
