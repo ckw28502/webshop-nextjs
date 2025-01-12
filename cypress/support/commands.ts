@@ -41,7 +41,7 @@
  * cy.mockServerRequest('GET', '/users', 200, { users: [] });
  */
 Cypress.Commands.add("mockServerRequest", (method, url, status, body = null) => {
-    cy.intercept(method, Cypress.env("API_URL") + url, (req) => {
+    cy.intercept(method, Cypress.env("CYPRESS_API_URL") + url, (req) => {
         req.reply({
             statusCode: status,
             body: body

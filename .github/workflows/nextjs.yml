@@ -28,22 +28,24 @@ jobs:
   #       env:
   #         NEXT_PUBLIC_API_URL: ${{ env.API_URL }}
 
-  test:
+  build-and-test:
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Create .env file
-        run: |
-          echo "NEXT_PUBLIC_API_URL=${{ env.API_URL }}" > .env
+      # - name: Create .env file
+      #   run: |
+      #     echo "NEXT_PUBLIC_API_URL=${{ env.API_URL }}" > .env
 
       - name: Run Cypress tests
         uses: cypress-io/github-action@v6
         with:
           build: npm run build
           start: npm start
-          env: API_URL=${{ env.API_URL }}
+        env: 
+          CYPRESS_API_URL: ${{ env.API_URL }}
+          NEXT_PUBLIC_API_URL: ${{ env.API_URL }}
 
       - name: Upload screenshots
         uses: actions/upload-artifact@v4
