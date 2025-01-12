@@ -31,10 +31,8 @@ jobs:
       - name: check ls
         run: ls
 
-      - name: Check .next folder
-        run: |
-          ls -la
-          ls -la .next
+      - name: Check .next size
+        run: du -sh .next
       
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
