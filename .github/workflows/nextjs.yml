@@ -20,7 +20,7 @@ jobs:
           echo "NEXT_PUBLIC_API_URL=${{ env.API_URL }}" > .env
 
       - name: echo the env
-      run: echo .env
+        run: echo .env
 
       - name: Run Cypress tests
         uses: cypress-io/github-action@v6
