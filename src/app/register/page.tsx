@@ -69,8 +69,9 @@ export default function RegisterPage(): JSX.Element {
             toastify.toastSuccess(t(getSuccessMessage())); // Display success notification
             formik.resetForm(); // Clear the form after successful submission
         })
-        .catch((error) => { // Handle error response            
-            toastify.toastError(t(getErrorMessage(error.response.data))); // Show error notification
+        .catch((error) => { // Handle error response       
+            toastify.toastError(error);     
+            // toastify.toastError(t(getErrorMessage(error.response.data))); // Show error notification
         })
     }
 
