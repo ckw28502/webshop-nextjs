@@ -9,18 +9,11 @@ env:
   NODE_VERSION: 18
 
 jobs:
-  build-and-test:
+  cypress:
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-
-      - name: Create .env file
-        run: |
-          echo "NEXT_PUBLIC_API_URL=${{ vars.API_URL }}" > .env
-
-      - name: show the env
-        run: cat .env
 
       - name: Run Cypress tests
         uses: cypress-io/github-action@v6
@@ -28,7 +21,6 @@ jobs:
           build: npm run build
           start: npm start
         env: 
-          CYPRESS_API_URL: ${{ vars.API_URL }}
           NEXT_PUBLIC_API_URL: ${{ vars.API_URL }}
 
       - name: Upload screenshots
