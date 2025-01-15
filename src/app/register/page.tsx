@@ -70,7 +70,6 @@ export default function RegisterPage(): JSX.Element {
             formik.resetForm(); // Clear the form after successful submission
         })
         .catch((error) => { // Handle error response  
-            cy.log(error);          
             toastify.toastError(t(getErrorMessage(error.response.data))); // Show error notification
         })
     }

@@ -16,7 +16,7 @@ const PATH = "/user";
  */
 async function createUser(request: RegisterDto): Promise<void> {
     // Sends the POST request to the user API endpoint with the registration data
-    await axiosInstance.post(PATH, request);
+    return axiosInstance.post(PATH, request);
 }
 
 // Exporting the userService object which contains the functions related to user operations
