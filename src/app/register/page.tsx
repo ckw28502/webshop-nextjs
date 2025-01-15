@@ -9,7 +9,7 @@ import userService from "@/services/userService";
 import toastify from "@/utils/toastify";
 import { RegisterDto } from "@/dto/requests/registerDto";
 import { useTranslations } from "next-intl";
-import { getSuccessMessage } from "@/utils/httpResponseHandler";
+import { getErrorMessage, getSuccessMessage } from "@/utils/httpResponseHandler";
 
 /**
  * @interface RegisterFormValues
@@ -69,9 +69,9 @@ export default function RegisterPage(): JSX.Element {
             toastify.toastSuccess(t(getSuccessMessage())); // Display success notification
             formik.resetForm(); // Clear the form after successful submission
         })
-        .catch((error) => { // Handle error response       
-            toastify.toastError(error);     
-            // toastify.toastError(t(getErrorMessage(error.response.data))); // Show error notification
+        .catch((error) => { // Handle error response  
+            cy.log(error);          
+            toastify.toastError(t(getErrorMessage(error.response.data))); // Show error notification
         })
     }
 
