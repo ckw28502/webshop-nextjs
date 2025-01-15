@@ -9,7 +9,7 @@ import userService from "@/services/userService";
 import toastify from "@/utils/toastify";
 import { RegisterDto } from "@/dto/requests/registerDto";
 import { useTranslations } from "next-intl";
-import { getErrorMessage, getSuccessMessage } from "@/utils/httpResponseHandler";
+import { getSuccessMessage } from "@/utils/httpResponseHandler";
 
 /**
  * @interface RegisterFormValues
