@@ -1,93 +1,22 @@
 "use client";
 
-import { object, ref, string } from "yup";
-import { useFormik } from "formik";
 import { Box, Button, TextField } from "@mui/material";
-import InputPassword from "../_components/inputs/Password";
+import InputPassword from "../components/inputs/Password";
 import { JSX } from "react";
-import userService from "@/services/userService";
-import toastify from "@/utils/toastify";
-import { RegisterDto } from "@/dto/requests/registerDto";
 import { useTranslations } from "next-intl";
-import { getErrorMessage, getSuccessMessage } from "@/utils/httpResponseHandler";
-
-/**
- * @interface RegisterFormValues
- * Represents the structure of the values used in the registration form.
- * @property {string} username - The username entered by the user.
- * @property {string} email - The email address entered by the user.
- * @property {string} password - The password entered by the user.
- * @property {string} confirmationPassword - The confirmation of the entered password.
- */
-interface RegisterFormValues {
-    username: string;
-    email: string;
-    password: string;
-    confirmationPassword: string;
-}
+import { useRegisterPage } from "./hooks/useRegisterPage";
 
 /**
  * RegisterPage component - Provides a user registration form with validation for username, password, and confirmation password.
  * 
  * @returns {JSX.Element} A form containing fields for username, password, and password confirmation.
  */
-export default function RegisterPage(): JSX.Element {
+const RegisterPage = (): JSX.Element => {
     // Hook for accessing translations for the page content
     const t = useTranslations("RegisterPage");
-    
-    // Yup validation schema for form fields
-    const validationSchema = object({
-        username: string()
-            .required("errors.username.required") // Username is required
-            .min(3, "errors.username.minLength") // Minimum username length
-            .max(50, "errors.username.maxLength"), // Maximum username length
-        email: string()
-            .required("errors.email.required") // Email is required
-            .email("errors.email.valid"), // Must be a valid email format
-        password: string()
-            .required("errors.password.required") // Password is required
-            .matches(/[A-Z]/, "errors.password.uppercase") // Require at least one uppercase letter
-            .matches(/[a-z]/, "errors.password.lowercase") // Require at least one lowercase letter
-            .matches(/\d/, "errors.password.number") // Require at least one digit
-            .min(8, "errors.password.minLength"), // Minimum password length
-        confirmationPassword: string()
-            .required("errors.confirmPassword.required") // Confirmation password is required
-            .oneOf([ref("password")], "errors.confirmPassword.mustMatch") // Must match the password field
-    });
 
-    /**
-     * Registers a new user by submitting form data to the createUser service method.
-     * Handles success and error responses using toast notifications.
-     * 
-     * @param {RegisterFormValues} values - User-entered form data containing username, password, and confirmation password.
-     */
-    async function register(values: RegisterFormValues) {
-        const request: RegisterDto = { ...values}; // Prepare data for API request
-
-        userService.createUser(request)
-        .then(() => {
-            toastify.toastSuccess(t(getSuccessMessage())); // Display success notification
-            formik.resetForm(); // Clear the form after successful submission
-        })
-        .catch((error) => { // Handle error response  
-            toastify.toastError(t(getErrorMessage(error.response.data))); // Show error notification
-        })
-    }
-
-    // Formik hook to manage form state, validation, and submission
-    const formik = useFormik({
-        initialValues: {
-            username: "", // Default username field value
-            email: "", // Default username field value
-            password: "", // Default password field value
-            confirmationPassword: "", // Default confirmation password field value
-        },
-        validationSchema: validationSchema, // Attach Yup validation schema
-        onSubmit: async(values: RegisterFormValues): Promise<void> => { // Form submission handler
-            await register(values); // Trigger registration logic
-        }
-    });
-
+    // Custom hook managing form logic and validation
+    const formik = useRegisterPage();
     return (
         <form onSubmit={formik.handleSubmit}> {/* Attach Formik submission handler to form */}
             
@@ -168,4 +97,6 @@ export default function RegisterPage(): JSX.Element {
             </Box>
         </form>
     );
-}
+};
+
+export default RegisterPage;

@@ -9,7 +9,7 @@ import { ChangeEvent, JSX } from "react";
  * 
  * @returns {JSX.Element} - The rendered LanguageSelect component containing a dropdown to select a language.
  */
-export default function LanguageSelect(): JSX.Element {
+const LanguageSelect = (): JSX.Element => {
     // Get the current locale (language) from the next-intl context
     const locale = useLocale();
 
@@ -38,4 +38,6 @@ export default function LanguageSelect(): JSX.Element {
             <option value="id">Bahasa Indonesia</option>
         </NativeSelect>
     );
-}
+};
+
+export default LanguageSelect;

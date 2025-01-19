@@ -34,7 +34,7 @@ interface InputPasswordProps {
  * @param {InputPasswordProps} props - The props object containing all properties for the password input.
  * @returns {JSX.Element} A TextField component with an optional visibility toggle for the password.
  */
-export default function InputPassword({ 
+const InputPassword = ({ 
     id,
     name,
     value,
@@ -43,7 +43,7 @@ export default function InputPassword({
     onBlur,
     error,
     helperText
- }: Readonly<InputPasswordProps>): JSX.Element {
+ }: Readonly<InputPasswordProps>): JSX.Element => {
     // State to track if the password is visible or hidden
     const [isVisible, setIsVisible] = useState(false);
 
@@ -82,4 +82,6 @@ export default function InputPassword({
             }}
         />
     );
-}
+};
+
+export default InputPassword;

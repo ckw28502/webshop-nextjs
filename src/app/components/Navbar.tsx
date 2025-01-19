@@ -14,7 +14,7 @@ import { useTranslations } from "next-intl";
  * 
  * @returns {JSX.Element} - The rendered navigation bar.
  */
-export default function Navbar(): JSX.Element {
+const Navbar = (): JSX.Element => {
      // Retrieve authentication status from context (whether the user is authenticated)
      const { isAuthenticated } = useAuth();
 
@@ -49,3 +49,5 @@ export default function Navbar(): JSX.Element {
         </Box>
     );
 };
+
+export default Navbar;

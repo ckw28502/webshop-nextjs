@@ -6,7 +6,7 @@ import { ThemeProvider } from "@mui/material";
 import theme from "../theme";
 import { JSX, ReactNode } from "react";
 import { AuthProvider } from "@/context/AuthContext";
-import Navbar from "./_components/Navbar";
+import Navbar from "./components/Navbar";
 import { ToastContainer } from "react-toastify";
 import { NextIntlClientProvider } from 'next-intl';
 import { getLocale, getMessages } from 'next-intl/server';

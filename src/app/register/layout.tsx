@@ -1,5 +1,5 @@
 import { JSX, ReactNode } from "react";
-import Form from "../_components/Form";
+import Form from "../components/Form";
 
 /**
  * Layout for the registration page.

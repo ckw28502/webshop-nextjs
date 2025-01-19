@@ -9,7 +9,7 @@ import { ChangeEvent, JSX } from "react";
  * 
  * @returns {JSX.Element} The rendered switch component for light/dark mode.
  */
-export default function LightDarkModeSwitch(): JSX.Element {
+const LightDarkModeSwitch = (): JSX.Element => {
   const { mode, setMode } = useColorScheme();
 
   /**
@@ -27,7 +27,7 @@ export default function LightDarkModeSwitch(): JSX.Element {
       onChange={toggleMode}
     />
   );
-}
+};
 
 /**
  * LightDarkModeSwitchComponent - A styled Material UI Switch component.
@@ -90,3 +90,5 @@ const LightDarkModeSwitchComponent = styled(Switch)(({ theme }) => ({
       }),
     },
 }));
+
+export default LightDarkModeSwitch;

@@ -20,7 +20,7 @@ interface FormProps {
  * @param {FormProps} props - The props object containing `title` and `children`.
  * @returns {JSX.Element} A Box container with a Paper element that contains the form's title and children.
  */
-export default function Form({ title, children }: Readonly<FormProps>): JSX.Element {
+const Form = ({ title, children }: Readonly<FormProps>): JSX.Element => {
     // Use translations to handle dynamic language changes based on the 'FormComponent' namespace
     const t = useTranslations("FormComponent");
 
@@ -46,4 +46,6 @@ export default function Form({ title, children }: Readonly<FormProps>): JSX.Elem
             </Box>
         </Box>
     );
-}
+};
+
+export default Form;
