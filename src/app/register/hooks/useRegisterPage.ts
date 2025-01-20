@@ -37,21 +37,21 @@ export const useRegisterPage = (): FormikProps<RegisterFormValues> => {
     // Yup validation schema for the form fields
     const validationSchema = object({
         username: string()
-            .required(t("errors.username.required")) // Username is required
-            .min(3, t("errors.username.minLength")) // Minimum username length
-            .max(50, t("errors.username.maxLength")), // Maximum username length
+            .required("errors.username.required") // Username is required
+            .min(3, "errors.username.minLength") // Minimum username length
+            .max(50, "errors.username.maxLength"), // Maximum username length
         email: string()
-            .required(t("errors.email.required")) // Email is required
-            .email(t("errors.email.valid")), // Must be a valid email format
+            .required("errors.email.required") // Email is required
+            .email("errors.email.valid"), // Must be a valid email format
         password: string()
-            .required(t("errors.password.required")) // Password is required
-            .matches(/[A-Z]/, t("errors.password.uppercase")) // Require at least one uppercase letter
-            .matches(/[a-z]/, t("errors.password.lowercase")) // Require at least one lowercase letter
-            .matches(/\d/, t("errors.password.number")) // Require at least one digit
-            .min(8, t("errors.password.minLength")), // Minimum password length
+            .required("errors.password.required") // Password is required
+            .matches(/[A-Z]/, "errors.password.uppercase") // Require at least one uppercase letter
+            .matches(/[a-z]/, "errors.password.lowercase") // Require at least one lowercase letter
+            .matches(/\d/, "errors.password.number") // Require at least one digit
+            .min(8, "errors.password.minLength"), // Minimum password length
         confirmationPassword: string()
-            .required(t("errors.confirmPassword.required")) // Confirmation password is required
-            .oneOf([ref("password")], t("errors.confirmPassword.mustMatch")), // Must match the password field
+            .required("errors.confirmPassword.required") // Confirmation password is required
+            .oneOf([ref("password")], "errors.confirmPassword.mustMatch"), // Must match the password field
     });
 
     /**

@@ -35,6 +35,27 @@
             }
         }
     },
+    "LoginPage": {
+        "login": "MASUK",
+        "username": "NAMA PENGGUNA",
+        "email": "EMAIL ADDRESS",
+        "password": "KATA SANDI",
+        "errors": {
+            "username": {
+                "required": "Nama pengguna wajib diisi"
+            },
+            "password": {
+                "required": "Kata sandi wajib diisi"
+            }
+        },
+        "response": {
+            "success": "Please check your email to confirm your registration",
+            "errors": {
+                "USERNAME_EXISTS": "Username is already taken",
+                "EMAIL_EXISTS": "Email address is already taken"
+            }
+        }
+    },
     "FormComponent": {
         "register": "DAFTAR",
         "login": "MASUK"
