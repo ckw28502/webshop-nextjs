@@ -1,4 +1,5 @@
 import { RegisterDto } from "@/dto/requests/registerDto";
+import { getLocale } from "@/i18n/locale";
 import userService from "@/services/userService";
 import { getErrorMessage, getSuccessMessage } from "@/utils/httpResponseHandler";
 import toastify from "@/utils/toastify";
@@ -60,7 +61,8 @@ export const useRegisterPage = (): FormikProps<RegisterFormValues> => {
      * @param {RegisterFormValues} values - The form data containing username, email, password, and confirmation password.
      */
     async function register(values: RegisterFormValues) {
-        const request: RegisterDto = { ...values }; // Prepare request payload
+        const language = await getLocale(); 
+        const request: RegisterDto = { ...values, language }; // Prepare request payload
 
         userService
             .createUser(request)
