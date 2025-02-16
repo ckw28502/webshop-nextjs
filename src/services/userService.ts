@@ -44,12 +44,25 @@ async function login(request: LoginDto): Promise<void> {
     return axiosInstance.post(`${PATH}/login`, request);
 }
 
+/**
+ * Sends a PATCH request to verify a user's account.
+ * This function handles account verification by sending a token to the server.
+ *
+ * @async
+ * @function verify
+ * @param {string} token - The verification token received by the user.
+ * @returns {Promise<void>} A promise that resolves when the account is successfully verified.
+ *
+ * @example
+ * await userService.verify('verification_token');
+ */
 async function verify(token: string): Promise<void> {
+    // Send a PATCH request to the verification endpoint with the token
     return axiosInstance.patch(`${PATH}/verify`, { token });
 }
 
 /**
- * A service object for user-related operations, such as creating a new user and logging in.
+ * A service object for user-related operations.
  * This object exports methods to interact with the user API endpoints.
  */
 const userService = { 

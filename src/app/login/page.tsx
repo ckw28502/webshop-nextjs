@@ -7,11 +7,13 @@ import { useTranslations } from "next-intl";
 import { useLoginPage } from "./hooks/useLoginPage";
 
 /**
- * RegisterPage component - Provides a user registration form with validation for username, password, and confirmation password.
+ * LoginPage Component
+ * This component renders a login form with fields for username and password. 
+ * It provides user-friendly validation messages and responsive design.
  * 
- * @returns {JSX.Element} A form containing fields for username, password, and password confirmation.
+ * @returns {JSX.Element} A form containing fields for username and password.
  */
-const RegisterPage = (): JSX.Element => {
+const LoginPage = (): JSX.Element => {
     // Hook for accessing translations for the page content
     const t = useTranslations("LoginPage");
 
@@ -52,7 +54,7 @@ const RegisterPage = (): JSX.Element => {
                 />
             </Box>
         
-            {/* Submit button to register user */}
+            {/* Submit button to authenticate user */}
             <Box display="flex" justifyContent="center"> {/* Center the button horizontally */}
                 <Button 
                     type="submit" // Submit button type
@@ -70,4 +72,4 @@ const RegisterPage = (): JSX.Element => {
     );
 };
 
-export default RegisterPage;
+export default LoginPage;

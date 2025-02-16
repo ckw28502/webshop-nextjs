@@ -7,7 +7,9 @@ import { useTranslations } from "next-intl";
 import { useRegisterPage } from "./hooks/useRegisterPage";
 
 /**
- * RegisterPage component - Provides a user registration form with validation for username, password, and confirmation password.
+ * RegisterPage component
+ * 
+ * Provides a user registration form with validation for username, password, and confirmation password.
  * 
  * @returns {JSX.Element} A form containing fields for username, password, and password confirmation.
  */
