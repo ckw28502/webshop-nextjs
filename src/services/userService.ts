@@ -44,13 +44,18 @@ async function login(request: LoginDto): Promise<void> {
     return axiosInstance.post(`${PATH}/login`, request);
 }
 
+async function verify(token: string): Promise<void> {
+    return axiosInstance.patch(`${PATH}/verify`, { token });
+}
+
 /**
  * A service object for user-related operations, such as creating a new user and logging in.
  * This object exports methods to interact with the user API endpoints.
  */
 const userService = { 
     createUser,
-    login
+    login,
+    verify
 };
 
 export default userService;

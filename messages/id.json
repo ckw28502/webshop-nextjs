@@ -49,16 +49,22 @@
             }
         },
         "response": {
-            "success": "Please check your email to confirm your registration",
+            "success": "Periksa email Anda untuk mengkonfirmasi pendaftaran Anda",
             "errors": {
-                "USERNAME_EXISTS": "Username is already taken",
-                "EMAIL_EXISTS": "Email address is already taken"
+                "USERNAME_EXISTS": "Nama pengguna sudah digunakan",
+                "EMAIL_EXISTS": "Alamat email sudah digunakan"
             }
         }
     },
     "FormComponent": {
         "register": "DAFTAR",
         "login": "MASUK"
+    },
+    "VerifyPage": {
+        "Error": {
+            "message": "Verifikasi alamat email gagal",
+            "link": "Klik di sini untuk mengirim ulang verifikasi email"
+        }
     },
     "Navbar": {
         "register": "DAFTAR",

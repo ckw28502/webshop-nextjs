@@ -56,6 +56,12 @@
             }
         }
     },
+    "VerifyPage": {
+        "Error": {
+            "message": "Failed verifying your email",
+            "link": "Click here to resend email verification"
+        }
+    },
     "FormComponent": {
         "register": "REGISTER",
         "login": "LOGIN"
